@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+curl -k -i -X POST ${kong_admin_api}/${workspace}/services/httpbin-service-azure/plugins \
+  --data "name=application-registration" \
+  --data "config.auto_approve=true" \
+  --data "config.description=Uses consumer claim with various values (sub, aud, etc.) as registration id to support different flows and use cases." \
+  --data "config.display_name=For Azure" \
+  --data "config.show_issuer=true" \
+  -H 'kong-admin-token:${kong_token}'
+

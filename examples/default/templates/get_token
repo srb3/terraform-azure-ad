@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+curl -X POST ${token_endpoint} \
+  --data scope="${client_id}/.default" \
+  --data grant_type="client_credentials" \
+  --data client_id="${client_id}" \
+  --data client_secret="${client_secret}"

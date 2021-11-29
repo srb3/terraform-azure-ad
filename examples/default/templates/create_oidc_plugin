@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+curl -k -i -X POST ${kong_admin_api}/${workspace}/services/httpbin-service-azure/plugins \
+  --data name=openid-connect \
+  --data config.issuer="${issuer}" \
+  --data config.auth_methods="bearer" \
+  --data config.display_errors="true" \
+  --data config.client_id="${client_id}" \
+  --data config.client_secret="${client_secret}" \
+  --data config.redirect_uri="https://example.com/api" \
+  --data config.consumer_claim=aud \
+  --data config.scopes="openid" \
+  --data config.scopes="${client_id}/.default" \
+  --data config.verify_parameters="false" \
+  -H 'kong-admin-token:${kong_token}'

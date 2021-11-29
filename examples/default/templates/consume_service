@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+ACCESS_TOKEN=$(curl -X POST ${token_endpoint} \
+  --data scope="${client_id}/.default" \
+  --data grant_type="client_credentials" \
+  --data client_id="${client_id}" \
+  --data client_secret="${client_secret}" | jq -r '.access_token')
+
+echo $ACCESS_TOKEN
+
+curl -k -H "Authorization: bearer $${ACCESS_TOKEN}" ${service_endpoint}

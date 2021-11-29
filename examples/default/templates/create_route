@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+curl -k -i -X PUT ${kong_admin_api}/${workspace}/services/httpbin-service-azure/routes/httpbin-route-azure \
+  --data 'paths=/httpbin-azure' \
+  -H 'kong-admin-token:${kong_token}'
