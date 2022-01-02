@@ -217,20 +217,6 @@ data "http" "metadata_alt" {
   }
 }
 
-# For debug:
-
-data "azuread_application" "this-application" {
-  depends_on   = [azuread_application.this-application]
-  display_name = var.display_name
-}
-
-resource "local_file" "this-application" {
-  depends_on      = [azuread_application.this-application]
-  content         = jsonencode(data.azuread_application.this-application)
-  filename        = "/home/steveb/workspace/temp_data/this-application.json"
-  file_permission = "0644"
-}
-
 # For test users
 locals {
   x = flatten([for k, v in var.users :
