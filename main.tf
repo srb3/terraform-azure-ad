@@ -135,7 +135,6 @@ resource "azuread_application" "this-application" {
 # We create a service principal for our
 # application
 resource "azuread_service_principal" "this" {
-  depends_on                   = [null_resource.patch_manifest]
   application_id               = azuread_application.this-application.application_id
   app_role_assignment_required = false
 
