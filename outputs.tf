@@ -1,3 +1,7 @@
+output "application" {
+  value = azuread_application.this-application
+}
+
 output "client_id" {
   value = azuread_application.this-application.application_id
 }
