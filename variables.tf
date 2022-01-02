@@ -21,6 +21,12 @@ variable "group_membership_claims" {
   default     = "None"
 }
 
+variable "requested_access_token_version" {
+  description = "The access token version to use"
+  type        = number
+  default     = 1
+}
+
 variable "oauth2_permission_scope" {
   description = "A list of objects that describe permision scopes to create"
   type = list(object({

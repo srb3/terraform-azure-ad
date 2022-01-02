@@ -98,6 +98,7 @@ resource "azuread_application" "this-application" {
     }
   }
   api {
+    requested_access_token_version = var.requested_access_token_version
     dynamic "oauth2_permission_scope" {
       for_each = var.set_scopes ? var.scopes : []
       content {
@@ -128,19 +129,6 @@ resource "azuread_application" "this-application" {
       id   = "e1fe6dd8-ba31-4d61-89e7-88639da4683d"
       type = "Scope"
     }
-  }
-}
-
-# Currently no way in terraform to make this patch
-# to the app manifest so we have to resort to
-# calling the az cli
-resource "null_resource" "patch_manifest" {
-  depends_on = [azuread_application.this-application]
-  triggers = {
-    app = azuread_application.this-application.id
-  }
-  provisioner "local-exec" {
-    command = "while ! az rest --method GET --uri https://graph.microsoft.com/v1.0/applications/${azuread_application.this-application.id} &> /dev/null ; do sleep 1; echo 'Waiting for app to be ready'; done; az rest --method PATCH --uri \"https://graph.microsoft.com/v1.0/applications/${azuread_application.this-application.id}\" --body '{\"api\":{\"requestedAccessTokenVersion\":2}}' --headers '{\"Content-Type\":\"application/json\"}'"
   }
 }
 
